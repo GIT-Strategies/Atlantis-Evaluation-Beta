@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function downloadChart() {
         const playerName = document.getElementById('playerName').value.trim();
         const evaluationDate = document.getElementById('evaluationDate').value || 'MM/DD/YYYY';
+        const levels = ['Insufficient', 'Developing', 'Sufficient', 'Select', 'Elite'];
         const data = {
             playerName: playerName,
             evaluationDate: evaluationDate,
@@ -144,23 +145,23 @@ document.addEventListener("DOMContentLoaded", function () {
             gameSense: document.getElementById('gameSense').value,
             comments: document.getElementById('comments').value
         };
-
+    
         const rightSection = document.querySelector('.right-section');
         const downloadButton = document.getElementById('downloadChart');
         const playerListDropdown = document.getElementById('playerList');
         const playerNameInput = document.getElementById('playerName');
         const evaluationDateInput = document.getElementById('evaluationDate');
         const commentsTextarea = document.getElementById('comments');
-
+    
         downloadButton.style.display = 'none';
         playerListDropdown.style.display = 'none';
         playerNameInput.style.display = 'none';
         evaluationDateInput.style.display = 'none';
         commentsTextarea.style.display = 'none';
-
+    
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'pt', 'a4');
-
+    
         pdf.setFillColor(51, 51, 51);
         pdf.rect(0, 0, pdf.internal.pageSize.width, 60, 'F');
         pdf.setTextColor(200, 165, 99);
@@ -168,58 +169,59 @@ document.addEventListener("DOMContentLoaded", function () {
         pdf.setFontSize(24);
         const playerTitle = `${evaluationDate} - ${playerName}`;
         pdf.text(playerTitle, pdf.internal.pageSize.width / 2, 40, { align: 'center' });
-
+    
         html2canvas(rightSection).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
-
+    
             downloadButton.style.display = '';
             playerListDropdown.style.display = '';
             playerNameInput.style.display = '';
             evaluationDateInput.style.display = '';
             commentsTextarea.style.display = '';
-
+    
             pdf.addImage(imgData, 'PNG', 40, 120, 500, 500);
-
+    
             const sliderLabels = ['Character', 'Pass-Catch', 'Carry (with the ball)', 'Lines of Running', 'Tackle-Contact Area', 'Game Sense'];
             const sliderValues = [
-                document.getElementById('character').value,
-                document.getElementById('passCatch').value,
-                document.getElementById('carry').value,
-                document.getElementById('linesOfRunning').value,
-                document.getElementById('tackleContact').value,
-                document.getElementById('gameSense').value
+                levels[document.getElementById('character').value],
+                levels[document.getElementById('passCatch').value],
+                levels[document.getElementById('carry').value],
+                levels[document.getElementById('linesOfRunning').value],
+                levels[document.getElementById('tackleContact').value],
+                levels[document.getElementById('gameSense').value]
             ];
-
+    
             pdf.setFont('Times', 'normal');
             pdf.setFontSize(12);
             pdf.setTextColor(0, 0, 0);
-
+    
             let sliderYPosition = 650;
             for (let i = 0; i < sliderLabels.length; i++) {
                 pdf.text(`${sliderLabels[i]}: ${sliderValues[i]}`, 40, sliderYPosition);
                 sliderYPosition += 15;
             }
-
+    
             const dividerX = 200;
             pdf.setDrawColor(0);
             pdf.line(dividerX, 640, dividerX, sliderYPosition + 20);
-
+    
             const commentsText = document.getElementById('comments').value;
             const commentsX = dividerX + 10;
             const commentsY = 650;
             const maxWidth = pdf.internal.pageSize.width - commentsX - 40;
-
+    
             pdf.text('Comments:', commentsX, commentsY);
             pdf.setFont('Times', 'italic');
             const wrappedComments = pdf.splitTextToSize(commentsText, maxWidth);
             pdf.text(wrappedComments, commentsX, commentsY + 20);
-
+    
             pdf.setFont('Times', 'italic');
             pdf.setFontSize(10);
             pdf.text('Powered by Give it a Try', 40, pdf.internal.pageSize.height - 40);
-
+    
             pdf.save(`${playerTitle}-evaluation.pdf`);
         });
+    
     }
 
     loadPlayerList();

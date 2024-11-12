@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Evaluation Radar Chart</title>
+    <!-- Include jsPDF, html2canvas, and Chart.js for chart and PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles_atlantis.css">
+</head>
+<body>
+    <!-- Banner with Logo and Title -->
+    <header class="banner">
+        <h1 class="banner-title">Player Evaluation Form</h1>
+        <img src="https://github.com/GIT-Strategies/Evaluation-Beta/blob/main/GIT%20just%20G%20logo%20white%20background%20(1).png?raw=true" alt="Logo" class="logo" />
+    </header>
+
+    <div class="container">
+        <!-- Left Section for Sliders and Inputs -->
+        <div class="left-section">
+            <input type="text" id="playerName" placeholder="Enter Player Name" />
+            <input type="date" id="evaluationDate" placeholder="Select Evaluation Date" />
+            <button id="savePlayer">Save Player</button>
+
+            <!-- Sliders Section -->
+            <div class="slider-group">
+                <label for="character">Character:</label>
+                <input type="range" id="character" class="score-slider" min="0" max="4" value="0">
+                <span id="characterValue">Insufficient</span>
+            </div>
+
+            <div class="slider-group">
+                <label for="passCatch">Pass-Catch:</label>
+                <input type="range" id="passCatch" class="score-slider" min="0" max="4" value="0">
+                <span id="passCatchValue">Insufficient</span>
+            </div>
+
+            <div class="slider-group">
+                <label for="carry">Carry (with the ball):</label>
+                <input type="range" id="carry" class="score-slider" min="0" max="4" value="0">
+                <span id="carryValue">Insufficient</span>
+            </div>
+
+            <div class="slider-group">
+                <label for="linesOfRunning">Lines of Running (Without the Ball):</label>
+                <input type="range" id="linesOfRunning" class="score-slider" min="0" max="4" value="0">
+                <span id="linesOfRunningValue">Insufficient</span>
+            </div>
+
+            <div class="slider-group">
+                <label for="tackleContact">Tackle-Contact Area:</label>
+                <input type="range" id="tackleContact" class="score-slider" min="0" max="4" value="0">
+                <span id="tackleContactValue">Insufficient</span>
+            </div>
+
+            <div class="slider-group">
+                <label for="gameSense">Game Sense:</label>
+                <input type="range" id="gameSense" class="score-slider" min="0" max="4" value="0">
+                <span id="gameSenseValue">Insufficient</span>
+            </div>
+        </div>
+
+        <!-- Right Section for Chart, Comments, and Download -->
+        <div class="right-section">
+            <!-- Player Selection -->
+            <select id="playerList">
+                <option value="">Select a Player</option>
+            </select>
+
+            <!-- Radar Chart -->
+            <canvas id="radarChart" width="600" height="600"></canvas>
+
+            <!-- Comment Section -->
+            <textarea id="comments" placeholder="Enter comments here..."></textarea>
+
+            <!-- Download Button -->
+            <button id="downloadChart">Download Chart</button>
+        </div>
+    </div>
+
+    <script src="scripts_atlantis.js"></script>
+</body>
+</html>

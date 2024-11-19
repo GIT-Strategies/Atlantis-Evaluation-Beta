@@ -54,6 +54,15 @@ body {
     margin-bottom: 15px;
 }
 
+/* Bold and Styled Slider Values */
+.slider-group span[id$="Value"] {
+    font-weight: bold;
+    font-size: 14px; /* Slightly larger for visibility */
+    color: #333; /* Ensure it matches branding or stands out */
+    margin-left: 10px; /* Add spacing from the slider */
+}
+
+
 /* Right Section: Chart and Other Elements */
 .right-section {
     flex-basis: 60%; /* Make chart area wider */
@@ -165,5 +174,90 @@ input[type="range"]::-moz-range-thumb {
         max-width: 400px; /* Prevent chart from becoming too large on tablets */
     }
 
+    .tooltip-icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+        background-color: #333333;
+        color: #ffffff;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 5px;
+        cursor: help;
+        position: relative;
+    }
+    
+    /* Tooltip Text Styling */
+    .tooltip-icon::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        top: 150%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333333;
+        color: #ffffff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        white-space: nowrap;
+        font-size: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+        z-index: 1000;
+    }
+    
+    /* Show tooltip on hover */
+    .tooltip-icon:hover::after {
+        opacity: 1;
+    }
+    
 
+
+}
+/* Tooltip Icon Styling */
+.tooltip-icon {
+    display: inline-block;
+    width: 16px; /* Maintain reduced size for alignment */
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: help;
+    margin-left: 5px;
+    position: relative;
+    vertical-align: middle; /* Aligns with text */
+}
+
+/* Tooltip Text Styling */
+.tooltip-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 150%; /* Position below the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 16px 24px; /* More padding for a cleaner look */
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.6; /* Maintain readability for longer text */
+    white-space: normal; /* Allow wrapping */
+    max-width: 750px; /* Further increased width for spacious layout */
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
+    transition: opacity 0.3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for clarity */
+}
+
+/* Tooltip Visibility on Hover */
+.tooltip-icon:hover::after {
+    opacity: 1;
 }
